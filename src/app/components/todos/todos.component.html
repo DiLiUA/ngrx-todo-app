@@ -1,0 +1,16 @@
+<h3>Todo list</h3>
+
+<form novalidate (ngSubmit)="submitTodo($event)">
+  <input type="text" [(ngModel)]="textTodo" name="todo" placeholder="Your text">
+  <button type="submit">Send</button>
+</form>
+
+<ul *ngIf="(todoItems|async).length; else todosIsEmpty">
+  <li *ngFor="let todo of todoItems|async">
+    <app-todo [todo]="todo"></app-todo>
+  </li>
+</ul>
+
+<ng-template #todosIsEmpty>
+  <div>Nothing to show</div>
+</ng-template>
