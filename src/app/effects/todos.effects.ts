@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
+
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -37,6 +38,23 @@ export class TodosEffects {
         .map(todo => this.todosActions.toggleTodoSuccess(todo))
     );
 
+  @Effect()
+  removeTodo$: Observable<Action> = this.actions$
+    .ofType(TodosActions.REMOVE_TODO)
+    .map(toPayload)
+    .switchMap(payload =>
+      this.todosService.removeTodo(payload)
+        .map(todo => this.todosActions.removeTodoSuccess(todo))
+    );
+
+  @Effect()
+  editTodo$: Observable<Action> = this.actions$
+    .ofType(TodosActions.SEND_EDITED_TODO)
+    .map(toPayload)
+    .switchMap(payload =>
+      this.todosService.editTodo(payload)
+        .map(textTodo => this.todosActions.sendEditedTodoSuccess(textTodo))
+    );
   constructor(private actions$: Actions, private todosService: TodosService, private todosActions: TodosActions) { }
 
 }

@@ -1,4 +1,10 @@
 <label>
-  <input type="checkbox" [checked]="todo.isDone" (change)="toggleDoneTodo(todo)">
+  <input type="checkbox"
+         [checked]="todo.isDone"
+         (change)="toggleDoneTodo(todo)"
+         [disabled]="editableTodo && editableTodo.id === todo.id ? true : false">
   {{todo.text}}
 </label>
+
+<span (click)="removeTodo(todo)" class="remove-icon">X</span>
+<span (click)="edit(todo)" class="remove-icon">edit</span>

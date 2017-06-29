@@ -9,7 +9,7 @@ export class TodosService {
   todos: Todo[];
 
   constructor() {
-    this.todos = [{text: 'todo 1', isDone: false}, {text: 'todo 2', isDone: true}, {text: 'todo 3', isDone: false}];
+    this.todos = [{text: 'todo 1', isDone: false, id: 1}, {text: 'todo 2', isDone: true, id: 2}, {text: 'todo 3', isDone: false, id: 3}];
   }
 
   getTodos(): Observable<Todo[]> {
@@ -17,10 +17,18 @@ export class TodosService {
   }
 
   addTodo(text: string): Observable<Todo> {
-    return Observable.of({text, isDone: false});
+    return Observable.of({text, isDone: false, id: Date.now()});
   }
 
   toggleDoneTodo(todo: Todo): Observable<Todo> {
+    return Observable.of(todo);
+  }
+
+  removeTodo(todo: Todo): Observable<Todo> {
+    return Observable.of(todo);
+  }
+
+  editTodo(todo: Todo): Observable<Todo> {
     return Observable.of(todo);
   }
 }

@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.remove-icon, .edit-icon {
+  cursor: pointer;
+  margin-left: 5px;
+  color: red;
+}
+
+label {
+  cursor: pointer;
+}
+
+.active-filter {
+  color: green;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+}
+
+
+.filters > li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.filters > li:hover {
+  opacity: 0.8;
+}
