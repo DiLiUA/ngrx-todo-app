@@ -49,11 +49,11 @@ export class TodosEffects {
 
   @Effect()
   editTodo$: Observable<Action> = this.actions$
-    .ofType(TodosActions.SEND_EDITED_TODO)
+    .ofType(TodosActions.UPDATE_TODO)
     .map(toPayload)
     .switchMap(payload =>
       this.todosService.editTodo(payload)
-        .map(textTodo => this.todosActions.sendEditedTodoSuccess(textTodo))
+        .map(textTodo => this.todosActions.updateTodoSuccess(textTodo))
     );
   constructor(private actions$: Actions, private todosService: TodosService, private todosActions: TodosActions) { }
 

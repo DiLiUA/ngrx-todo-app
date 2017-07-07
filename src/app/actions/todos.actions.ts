@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
+
 import { Todo } from '../models/todo';
-import { Filter } from '../reducers/todos.reducer';
 
 @Injectable()
 export class TodosActions {
@@ -14,9 +14,13 @@ export class TodosActions {
   static REMOVE_TODO = 'Remove todo';
   static REMOVE_TODO_SUCCESS = 'Remove todo success';
   static EDIT_TODO = 'Edit todo';
-  static SEND_EDITED_TODO = 'Send edited todo';
-  static SEND_EDITED_TODO_SUCCESS = 'Send edited todo success';
-  static CHANGE_FILTER = 'Change filter';
+  static UPDATE_TODO = 'Update todo';
+  static UPDATE_TODO_SUCCESS = 'Update todo success';
+  static FILTER_TODOS = {
+    All: 'Show all todos',
+    Active: 'Show active todos',
+    Completed: 'Show completed todos'
+  };
 
   getTodos(): Action {
     return {
@@ -80,23 +84,23 @@ export class TodosActions {
     };
   }
 
-  sendEditedTodo(textTodo: string): Action {
+  updateTodo(textTodo: string): Action {
     return {
-      type: TodosActions.SEND_EDITED_TODO,
+      type: TodosActions.UPDATE_TODO,
       payload: textTodo
     };
   }
 
-  sendEditedTodoSuccess(textTodo: Todo): Action {
+  updateTodoSuccess(textTodo: Todo): Action {
     return {
-      type: TodosActions.SEND_EDITED_TODO_SUCCESS,
+      type: TodosActions.UPDATE_TODO_SUCCESS,
       payload: textTodo
     };
   }
 
-  changeFilter(filter: Filter): Action {
+  filterTodos(filter: string) {
     return {
-      type: TodosActions.CHANGE_FILTER,
+      type: TodosActions.FILTER_TODOS[filter],
       payload: filter
     };
   }

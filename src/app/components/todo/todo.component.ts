@@ -1,37 +1,32 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
 
-
-import { TodosActions } from '../../actions/todos.actions';
 import { Todo } from '../../models/todo';
-import { TodosState } from '../../reducers/todos.reducer';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html'
 })
 export class TodoComponent {
-  @Input() todo;
-  @Input() editableTodo;
-  @Output() editTodo = new EventEmitter();
+  @Input()  todo: Todo = {text: '', isDone: false};
+  @Input()  editableTodo: Todo = null;
+  @Output() editTodo: EventEmitter<Todo> = new EventEmitter();
+  @Output() remove: EventEmitter<Todo> = new EventEmitter();
+  @Output() toggleDone: EventEmitter<Todo> = new EventEmitter();
 
-  constructor(private store: Store<TodosState>, private actions: TodosActions) {
-  }
 
   toggleDoneTodo(todo: Todo): void {
-    this.store.dispatch(this.actions.toggleTodo(todo));
+    if (!this.editableTodo) {
+      this.toggleDone.emit(todo);
+    }
   }
 
   removeTodo(todo: Todo): void {
     if (!this.editableTodo) {
-      this.store.dispatch(this.actions.removeTodo(todo));
+      this.remove.emit(todo);
     }
   }
 
   edit(todo: Todo): void {
-    this.store.dispatch(this.actions.editTodo(todo));
-    const editableText = this.editableTodo && this.editableTodo === todo ? '' : todo.text;
-
-    this.editTodo.emit(editableText);
+    this.editTodo.emit(todo);
   }
 }

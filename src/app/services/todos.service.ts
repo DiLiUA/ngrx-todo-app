@@ -9,7 +9,7 @@ export class TodosService {
   todos: Todo[];
 
   constructor() {
-    this.todos = [{text: 'todo 1', isDone: false, id: 1}, {text: 'todo 2', isDone: true, id: 2}, {text: 'todo 3', isDone: false, id: 3}];
+    this.todos = [{text: 'todo 1', isDone: false}, {text: 'todo 2', isDone: true}, {text: 'todo 3', isDone: false}];
   }
 
   getTodos(): Observable<Todo[]> {

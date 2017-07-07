@@ -2,23 +2,27 @@
 
 <form novalidate (ngSubmit)="submitTodo($event)">
   <input type="text" [(ngModel)]="textTodo" name="todo" placeholder="Your text">
-  <button type="submit">{{isEdit ? 'Edit' : 'Send'}}</button>
+  <button type="submit">{{editableTodo ? 'Edit' : 'Send'}}</button>
 </form>
 
-<ul *ngIf="(todoItems|async).length; else todosIsEmpty">
-  <li *ngFor="let todo of todoItems|async">
-    <app-todo [todo]="todo" [editableTodo]="editableTodo|async" (editTodo)="editTodo($event)"></app-todo>
+<ul class="filters">
+  <li *ngFor="let filter of (filters$|async).filters"
+      (click)="filterTodos(filter)"
+      [class.active-filter]="filter === (filters$|async).activeFilter">{{filter}}</li>
+</ul>
+
+<ul *ngIf="(todos$|async).length; else todosIsEmpty">
+  <li *ngFor="let todo of todos$|async">
+    <app-todo
+      [todo]="todo"
+      [editableTodo]="editableTodo"
+      (editTodo)="editTodo($event)"
+      (toggleDone)="toggleTodo($event)"
+      (remove)="removeTodo($event)">
+    </app-todo>
   </li>
 </ul>
 
 <ng-template #todosIsEmpty>
   <div>Nothing to show</div>
 </ng-template>
-
-<ul class="filters">
-  <li *ngFor="let filter of filters"
-      (click)="changeFilter(filter)"
-      [class.active-filter]="filter.title === (activeFilter|async).title">
-    {{filter.title}}
-  </li>
-</ul>
