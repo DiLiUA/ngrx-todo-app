@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { TodosState } from '../../reducers/todos.reducer';
-import { TodosActions } from '../../actions/todos.actions';
 import { Todo } from '../../models/todo';
 
 @Component({
@@ -10,13 +7,26 @@ import { Todo } from '../../models/todo';
   templateUrl: './todo.component.html'
 })
 export class TodoComponent {
-  @Input() todo: Todo;
+  @Input()  todo: Todo = {text: '', isDone: false};
+  @Input()  editableTodo: Todo = null;
+  @Output() editTodo: EventEmitter<Todo> = new EventEmitter();
+  @Output() remove: EventEmitter<Todo> = new EventEmitter();
+  @Output() toggleDone: EventEmitter<Todo> = new EventEmitter();
 
-  constructor(private store: Store<TodosState>, private actions: TodosActions) {
-  }
 
   toggleDoneTodo(todo: Todo): void {
-    this.store.dispatch(this.actions.toggleTodo(todo));
+    if (!this.editableTodo) {
+      this.toggleDone.emit(todo);
+    }
   }
 
+  removeTodo(todo: Todo): void {
+    if (!this.editableTodo) {
+      this.remove.emit(todo);
+    }
+  }
+
+  edit(todo: Todo): void {
+    this.editTodo.emit(todo);
+  }
 }

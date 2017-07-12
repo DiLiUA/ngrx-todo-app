@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
+
 import { Todo } from '../models/todo';
 
 @Injectable()
@@ -10,6 +11,16 @@ export class TodosActions {
   static ADD_TODO_SUCCESS = 'Add todo success';
   static TOGGLE_TODO = 'Toggle todo';
   static TOGGLE_TODO_SUCCESS = 'Toggle todo success';
+  static REMOVE_TODO = 'Remove todo';
+  static REMOVE_TODO_SUCCESS = 'Remove todo success';
+  static EDIT_TODO = 'Edit todo';
+  static UPDATE_TODO = 'Update todo';
+  static UPDATE_TODO_SUCCESS = 'Update todo success';
+  static FILTER_TODOS = {
+    All: 'Show all todos',
+    Active: 'Show active todos',
+    Completed: 'Show completed todos'
+  };
 
   getTodos(): Action {
     return {
@@ -52,4 +63,45 @@ export class TodosActions {
     };
   }
 
+  removeTodo(todo: Todo): Action {
+    return {
+      type: TodosActions.REMOVE_TODO,
+      payload: todo
+    };
+  }
+
+  removeTodoSuccess(todo: Todo): Action {
+    return {
+      type: TodosActions.REMOVE_TODO_SUCCESS,
+      payload: todo
+    };
+  }
+
+  editTodo(todo: Todo): Action {
+    return {
+      type: TodosActions.EDIT_TODO,
+      payload: todo
+    };
+  }
+
+  updateTodo(textTodo: string): Action {
+    return {
+      type: TodosActions.UPDATE_TODO,
+      payload: textTodo
+    };
+  }
+
+  updateTodoSuccess(textTodo: Todo): Action {
+    return {
+      type: TodosActions.UPDATE_TODO_SUCCESS,
+      payload: textTodo
+    };
+  }
+
+  filterTodos(filter: string) {
+    return {
+      type: TodosActions.FILTER_TODOS[filter],
+      payload: filter
+    };
+  }
 }

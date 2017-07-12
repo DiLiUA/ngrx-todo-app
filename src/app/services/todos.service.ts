@@ -17,10 +17,18 @@ export class TodosService {
   }
 
   addTodo(text: string): Observable<Todo> {
-    return Observable.of({text, isDone: false});
+    return Observable.of({text, isDone: false, id: Date.now()});
   }
 
   toggleDoneTodo(todo: Todo): Observable<Todo> {
+    return Observable.of(todo);
+  }
+
+  removeTodo(todo: Todo): Observable<Todo> {
+    return Observable.of(todo);
+  }
+
+  editTodo(todo: Todo): Observable<Todo> {
     return Observable.of(todo);
   }
 }
