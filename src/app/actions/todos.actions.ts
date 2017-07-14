@@ -84,17 +84,17 @@ export class TodosActions {
     };
   }
 
-  updateTodo(textTodo: string): Action {
+  updateTodo(todo: {todo: Todo, text: string}): Action {
     return {
       type: TodosActions.UPDATE_TODO,
-      payload: textTodo
+      payload: todo
     };
   }
 
-  updateTodoSuccess(textTodo: Todo): Action {
+  updateTodoSuccess(todo: Todo): Action {
     return {
       type: TodosActions.UPDATE_TODO_SUCCESS,
-      payload: textTodo
+      payload: todo
     };
   }
 
