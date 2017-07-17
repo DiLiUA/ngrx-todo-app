@@ -33,8 +33,8 @@ export class TodosEffects {
   toggleTodo$: Observable<Action> = this.actions$
     .ofType(TodosActions.TOGGLE_TODO)
     .map(toPayload)
-    .switchMap(text =>
-      this.todosService.toggleDoneTodo(text)
+    .switchMap(todo =>
+      this.todosService.toggleDoneTodo(todo)
         .map(todo => this.todosActions.toggleTodoSuccess(todo))
     );
 
@@ -53,7 +53,7 @@ export class TodosEffects {
     .map(toPayload)
     .switchMap(payload =>
       this.todosService.editTodo(payload)
-        .map(textTodo => this.todosActions.updateTodoSuccess(textTodo))
+        .map(todo => this.todosActions.updateTodoSuccess(todo))
     );
   constructor(private actions$: Actions, private todosService: TodosService, private todosActions: TodosActions) { }
 

@@ -7,7 +7,8 @@ import 'rxjs/add/observable/combineLatest';
 import { TodosActions } from '../../actions/todos.actions';
 import { Todo } from '../../models/todo';
 import { TodosState } from '../../reducers/todos.reducer';
-import { FiltersState } from '../../reducers/filters.reduser';
+import { FiltersState } from '../../reducers/filters.reducer';
+import { State } from '../../reducers/index.reducer';
 
 @Component({
   selector: 'app-todos',
@@ -19,7 +20,7 @@ export class TodosComponent {
   todos$: Observable<Todo[]>;
   filters$: Observable<FiltersState>;
 
-  constructor(private store: Store<TodosState>, private actions: TodosActions) {
+  constructor(private store: Store<State>, private actions: TodosActions) {
     this.textTodo = '';
 
     const state$: Observable<{todos: TodosState, filters: FiltersState}> = Observable.combineLatest(
@@ -41,7 +42,8 @@ export class TodosComponent {
     evt.preventDefault();
     if (this.textTodo) {
       if (this.editableTodo) {
-        this.store.dispatch(this.actions.updateTodo(this.textTodo));
+        const todo = Object.assign({},  this.editableTodo, {text: this.textTodo});
+        this.store.dispatch(this.actions.updateTodo({todo: this.editableTodo, text: this.textTodo}));
       } else {
         this.store.dispatch(this.actions.addTodo(this.textTodo));
       }

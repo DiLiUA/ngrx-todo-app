@@ -2,7 +2,7 @@ import { compose } from '@ngrx/core';
 import { combineReducers } from '@ngrx/store';
 
 import { todos, TodosState } from './todos.reducer';
-import { filters, FiltersState } from './filters.reduser';
+import { filters, FiltersState } from './filters.reducer';
 
 export interface State {
   todos: TodosState;

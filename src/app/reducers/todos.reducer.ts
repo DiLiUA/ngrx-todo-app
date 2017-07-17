@@ -40,7 +40,7 @@ export function todos(state = initialState, action: Action): TodosState {
 
     case TodosActions.UPDATE_TODO_SUCCESS:
       return Object.assign({}, state, {
-        todoItems: state.todoItems.map(todo => todo === state.editableTodo ? Object.assign({}, state.editableTodo, {text: action.payload}) : todo),
+        todoItems: state.todoItems.map(todo => todo === state.editableTodo ? Object.assign({}, action.payload.todo, {text: action.payload.text}) : todo),
         editableTodo: null
       });
 

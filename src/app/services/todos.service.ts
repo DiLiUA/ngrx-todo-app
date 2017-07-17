@@ -17,7 +17,7 @@ export class TodosService {
   }
 
   addTodo(text: string): Observable<Todo> {
-    return Observable.of({text, isDone: false, id: Date.now()});
+    return Observable.of({text, isDone: false});
   }
 
   toggleDoneTodo(todo: Todo): Observable<Todo> {
